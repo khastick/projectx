@@ -2,6 +2,10 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 var player;
 var enemies;
+var enemy1;
+var enemy2;
+var boss;
+var cursors;
 
 function preload() {
 	game.load.image('player', 'assets/kirbysmall.png');
@@ -11,17 +15,30 @@ function preload() {
 }
 
 function create() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 	player = game.add.sprite(32, game.world.height - 150, 'player');
-	player = game.add.sprite(2, game.world.height - 76, 'enemy');
-	player = game.add.sprite(64, game.world.height - 50, 'enemy');
-	player = game.add.sprite(100, game.world.height - 100, 'boss');
+	enemy1 = game.add.sprite(2, game.world.height - 76, 'enemy');
+	enemy2 = game.add.sprite(64, game.world.height - 50, 'enemy');
+	boss = game.add.sprite(100, game.world.height - 100, 'boss');
+
+    game.physics.enable(player, Phaser.Physics.ARCADE);
+    game.physics.enable(enemy1, Phaser.Physics.ARCADE);
+    game.physics.enable(enemy2, Phaser.Physics.ARCADE);
+
+    enemy1.enableBody = true;
 
 	cursors = game.input.keyboard.createCursorKeys();
+    game.physics.arcade.enable(player);
 
 	game.world.setBounds(0, 0, 800, 600);
 	player.body.collideWorldBounds(true);
 	player.bringToTop();
 
+    enemies = game.add.group(); 
+    enemies.enableBody = true;
+
+    enemies.create(2, game.world.height - 76, 'enemy');
+    enemies.create(64, game.world.height - 50, 'enemy');
 
 	//game.physics.arcade.enable(player);
 }
@@ -29,31 +46,45 @@ function create() {
 function update() {
     //  Reset the players velocity (movement)
     //player.body.velocity.x = 0;
+    player.body.velocity.x = 0;
+    player.body.velocity.y = 0;
+
+    game.physics.arcade.collide(player, enemies, absorb, null, this);
+    game.physics.arcade.overlap(player, enemy1, absorb, null, this);
 
 	if (cursors.left.isDown) {
         //  Move to the left
-        player.body.velocity.x = -150;
+        player.body.velocity.x = -500;
 
        // player.animations.play('left');
+        //player.body.x--;
+        //alert(player.body.x);
+
     }
     else if (cursors.right.isDown) {
         //  Move to the right
-        player.body.velocity.x = 150;
+        player.body.velocity.x = 500;
 
         //player.animations.play('right');
+        //player.x++;
     }
-    else if (cursors.up.isDown) {
-    	player.body.velocity.y = -150;
+     if (cursors.up.isDown) {
+    	player.body.velocity.y = -500;
+        //player.y--;
     }
     else if (cursors.down.isDown) {
-    	player.body.velocity.y = 150;
+    	player.body.velocity.y = 500;
+        //player.y++;
     }
-    else {
+    //else {
         //  Stand still
-        player.animations.stop();
+        //player.body.velocity.y = 150;
+        //player.animations.stop();
 
         //player.frame = 4;
-    }
+    //}
+
+    //if (player.body.velocity)
     
     //  Allow the player to jump if they are touching the ground.
     /*
@@ -62,4 +93,9 @@ function update() {
         player.body.velocity.y = -350;
     }
     */
+
+    function absorb(player, enemy1) {
+        alert('absorb');
+        player.sprite.loadTexture('playerSuper');
+    }
 }
