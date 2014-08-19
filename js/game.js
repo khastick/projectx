@@ -31,7 +31,7 @@ function create() {
     game.physics.arcade.enable(player);
 
 	game.world.setBounds(0, 0, 800, 600);
-	player.body.collideWorldBounds(true);
+    player.body.collideWorldBounds = true;
 	player.bringToTop();
 
     enemies = game.add.group(); 
@@ -49,8 +49,8 @@ function update() {
     player.body.velocity.x = 0;
     player.body.velocity.y = 0;
 
-    game.physics.arcade.collide(player, enemies, absorb, null, this);
-    game.physics.arcade.overlap(player, enemy1, absorb, null, this);
+    game.physics.arcade.overlap(player, enemies, absorb, null, this);
+    //game.physics.arcade.overlap(player, enemy1, absorb, null, this);
 
 	if (cursors.left.isDown) {
         //  Move to the left
@@ -95,7 +95,8 @@ function update() {
     */
 
     function absorb(player, enemy1) {
-        alert('absorb');
-        player.sprite.loadTexture('playerSuper');
+        //alert('absorb');
+        player.loadTexture('playerSuper');
+        //player = game.add.sprite(player.x, player.y, 'playerSuper');
     }
 }
