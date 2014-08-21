@@ -16,16 +16,16 @@ function preload() {
 
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-	player = game.add.sprite(32, game.world.height - 150, 'player');
-	enemy1 = game.add.sprite(2, game.world.height - 76, 'enemy');
-	enemy2 = game.add.sprite(64, game.world.height - 50, 'enemy');
+	player = game.add.sprite(700, game.world.height - 150, 'player');
+	//enemy1 = game.add.sprite(2, game.world.height - 76, 'enemy');
+	//enemy2 = game.add.sprite(64, game.world.height - 50, 'enemy');
 	boss = game.add.sprite(100, game.world.height - 100, 'boss');
 
     game.physics.enable(player, Phaser.Physics.ARCADE);
-    game.physics.enable(enemy1, Phaser.Physics.ARCADE);
-    game.physics.enable(enemy2, Phaser.Physics.ARCADE);
+    //game.physics.enable(enemy1, Phaser.Physics.ARCADE);
+    //game.physics.enable(enemy2, Phaser.Physics.ARCADE);
 
-    enemy1.enableBody = true;
+    //enemy1.enableBody = true;
 
 	cursors = game.input.keyboard.createCursorKeys();
     game.physics.arcade.enable(player);
@@ -40,6 +40,14 @@ function create() {
     enemies.create(2, game.world.height - 76, 'enemy');
     enemies.create(64, game.world.height - 50, 'enemy');
 
+    for (var i = 0; i < enemies.length; i++) {
+        //enemies[i].y = -300;
+        //enemies[i];
+        //enemies.getAt(i).body.velocity.y = -300;
+        enemies.getAt(i).body.collideWorldBounds = true;
+        game.physics.enable(enemies.getAt(i));
+    }
+
 	//game.physics.arcade.enable(player);
 }
 
@@ -51,6 +59,12 @@ function update() {
 
     game.physics.arcade.overlap(player, enemies, absorb, null, this);
     //game.physics.arcade.overlap(player, enemy1, absorb, null, this);
+
+    for (var i = 0; i < enemies.length; i++) {
+        //enemies[i].y = -300;
+        //enemies[i];
+        enemies.getAt(i).body.velocity.y = -300;
+    }
 
 	if (cursors.left.isDown) {
         //  Move to the left
