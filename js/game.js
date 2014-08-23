@@ -24,11 +24,13 @@ function create() {
     game.physics.enable(player, Phaser.Physics.ARCADE);
     //game.physics.enable(enemy1, Phaser.Physics.ARCADE);
     //game.physics.enable(enemy2, Phaser.Physics.ARCADE);
+    game.physics.enable(boss, Phaser.Physics.ARCADE);
 
     //enemy1.enableBody = true;
 
 	cursors = game.input.keyboard.createCursorKeys();
     game.physics.arcade.enable(player);
+    game.physics.arcade.enable(boss);
 
 	game.world.setBounds(0, 0, 800, 600);
     player.body.collideWorldBounds = true;
@@ -36,6 +38,9 @@ function create() {
 
     enemies = game.add.group(); 
     enemies.enableBody = true;
+
+    boss.enableBody = true;
+    boss.body.collideWorldBounds = true;
 
     enemies.create(2, game.world.height - 76, 'enemy');
     enemies.create(64, game.world.height - 50, 'enemy');
@@ -65,6 +70,8 @@ function update() {
         //enemies[i];
         enemies.getAt(i).body.velocity.y = -300;
     }
+
+    boss.body.velocity.x = 450;
 
 	if (cursors.left.isDown) {
         //  Move to the left
