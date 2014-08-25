@@ -68,7 +68,19 @@ function update() {
     for (var i = 0; i < enemies.length; i++) {
         //enemies[i].y = -300;
         //enemies[i];
-        enemies.getAt(i).body.velocity.y = -300;
+        var random = Math.floor(Math.random() * 4) + 1);
+        if (random === 1) {
+            enemies.getAt(i).body.velocity.y = -300;
+        } 
+        else if (random === 2) {
+            enemies.getAt(i).body.velocity.y = 300;
+        }
+        else if (random === 3) {
+            enemies.getAt(i).body.velocity.x = -300;
+        }
+        else if (random === 4) {
+            enemies.getAt(i).body.velocity.x = 300;
+        }
     }
 
     boss.body.velocity.x = 450;
