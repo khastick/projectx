@@ -83,7 +83,7 @@ function update() {
         }
     }
 
-    boss.body.velocity.x = 450;
+    boss.body.velocity.x = 475;
 
 	if (cursors.left.isDown) {
         //  Move to the left
