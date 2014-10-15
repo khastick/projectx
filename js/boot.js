@@ -9,7 +9,7 @@ var bootState = {
 	},
 
 	create: function() {
-		game.stage.backgroundColor = '#3498db';
+		//game.stage.backgroundColor = '#3498db';
 
 		// TODO: Decide what 
 		game.physics.startSystem(Phaser.Physics.ARCADE);
