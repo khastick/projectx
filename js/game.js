@@ -7,7 +7,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 
 // Global variables set in here
 game.global = {
-	score: 0
+	//score: 0
 };
 
 game.state.add('boot', bootState);
