@@ -11,8 +11,8 @@ var bootState = {
 	create: function() {
 		//game.stage.backgroundColor = '#3498db';
 
-		// TODO: Decide what 
-		game.physics.startSystem(Phaser.Physics.ARCADE);
+		// TODO: Decide what Physics engine to use
+		//game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		// Mobile: configures game screen for mobile devices
 		/*
