@@ -33,10 +33,17 @@ var playState = {
 
 		game.camera.follow(this.player);
 
+		this.createEnemies();
+		this.enemies.createMultiple(10, 'enemy');
+
+		/*
 		this.enemies = game.add.group();
 		this.enemies.enableBody = true;
 		this.enemies.createMultiple(10, 'enemy');
+		*/
+		
 		//game.time.events.loop(2200, this.addEnemy, this);
+		
 		game.time.events.loop(250, this.addEnemy, this);
 		//this.nextEnemy = 0; // for dynamic frequency of enemies
 
@@ -53,16 +60,33 @@ var playState = {
 		//game.physics.arcade.collide(this.player, this.walls);
 		//game.physics.arcade.collide(this.enemies, this.walls);
 
-		game.physics.arcade.collide(this.player, this.layer);
-		game.physics.arcade.collide(this.enemies, this.layer);
+
+		game.physics.arcade.overlap(this.platform, this.blockLayer, function() {
+			//alert('khama');
+			this.platform.body.velocity.x = -250;
+		}, null, this);
+
+		game.physics.arcade.collide(this.player, this.blockedLayer);
+		game.physics.arcade.collide(this.enemies, this.blockedLayer);
+
+		game.physics.arcade.collide(this.player, this.platform);
+		game.physics.arcade.collide(this.enemies, this.platform);
+
+		game.physics.arcade.collide(this.blockLayer, this.platform, function() {
+			//alert('khama');
+		});
 
 		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
+
+		this.platform.body.velocity.x = 500;
+
 		this.movePlayer();
 		if (!this.player.inWorld) {
 			//this.playerDie("fall");
-			alert();
+			//alert();
 			this.playerDie("fall");
 		}
+
 	},
 
 	movePlayer: function() {
@@ -142,9 +166,46 @@ var playState = {
 	createWorld: function() {
 		this.tilemap = game.add.tilemap('tilemap');
 		this.tilemap.addTilesetImage('tileset');
-		this.layer = this.tilemap.createLayer('Tile Layer 1');
-		this.layer.resizeWorld();
-		this.tilemap.setCollision(1);
+		this.blockedLayer = this.tilemap.createLayer('blockedLayer');
+		//this.tilemap.setCollision(1);
+		this.tilemap.setCollisionBetween(1, 1000, true, 'blockedLayer');
+		this.blockedLayer.resizeWorld();
+
+		//this.
+
+
+		result = this.findObjectsByType('platform', this.tilemap, 'objectLayer');
+
+
+		//this.platform = game.add.sprite
+
+		result.forEach(function(element) {
+			//this.createFromTiledObject(element, this.enemies);
+
+			//alert(element.properties.sprite);
+
+			this.platform = game.add.sprite(element.x, element.y, element.properties.sprite);
+
+/*
+			//copy all properties to the sprite
+			Object.keys(element.properties).forEach(function(key){
+				this.platform[key] = element.properties[key];
+			});
+			*/
+
+		}, this);
+
+
+
+		game.physics.arcade.enable(this.platform);
+
+		this.platform.enableBody = true;
+		this.platform.anchor.setTo(0.5, 0.5);
+		this.platform.body.immovable = true;
+
+		this.platform.body.bounce.x = 1;
+		this.platform.checkWorldBounds = true;
+		this.platform.outOfBoundsKill = true;
 
 		/*
 		this.walls = game.add.group();
@@ -178,6 +239,80 @@ var playState = {
 		enemy.body.bounce.x = 1;
 		enemy.checkWorldBounds = true;
 		enemy.outOfBoundsKill = true;
+	},
+
+	createEnemies: function() {		
+		this.enemies = game.add.group();
+		this.enemies.enableBody = true;
+		var enemy;
+		result = this.findObjectsByType('enemy2', this.tilemap, 'objectLayer');
+		result.forEach(function(element) {
+			this.createFromTiledObject(element, this.enemies);
+
+		}, this);
+
+		this.enemies.forEach(function(item) {
+			item.body.gravity.y = game.rnd.integerInRange(450, 700);
+			item.body.velocity.x = game.rnd.integerInRange(75, 200) * Phaser.Math.randomSign();
+			item.body.bounce.x = 1;
+			item.checkWorldBounds = true;
+			item.outOfBoundsKill = true;
+		}, this);
+/*
+		enemy.body.gravity.y = game.rnd.integerInRange(450, 700);
+		enemy.body.velocity.x = game.rnd.integerInRange(75, 200) * Phaser.Math.randomSign();
+		enemy.body.bounce.x = 1;
+		enemy.checkWorldBounds = true;
+		enemy.outOfBoundsKill = true;
+		*/
+
+
+		//this.enemies.createMultiple(10, 'enemy');
+
+		
+		//game.time.events.loop(2200, this.addEnemy, this);
+		
+		//game.time.events.loop(250, this.addEnemy, this);
+	},
+
+	createItems: function() {
+		this.items = this.game.add.group();
+		this.items.enableBody = true;
+		var item;
+		//result = this.findObjectsByType('item', )
+	},
+
+	//create a sprite from an object
+	createFromTiledObject: function(element, group) {
+		var sprite = group.create(element.x, element.y, element.properties.sprite);
+
+/*
+		sprite.body.gravity.y = game.rnd.integerInRange(450, 700);
+		sprite.body.velocity.x = game.rnd.integerInRange(75, 200) * Phaser.Math.randomSign();
+		sprite.body.bounce.x = 1;
+		sprite.checkWorldBounds = true;
+		sprite.outOfBoundsKill = true;
+		*/
+
+		//copy all properties to the sprite
+		Object.keys(element.properties).forEach(function(key){
+			sprite[key] = element.properties[key];
+		});
+  	},
+
+	//find objects in a Tiled layer that containt a property called "type" equal to a certain value
+	findObjectsByType: function(type, map, layer) {
+		var result = new Array();
+	    map.objects[layer].forEach(function(element){
+			if(element.properties.type === type) {
+				//Phaser uses top left, Tiled bottom left so we have to adjust
+				//also keep in mind that the cup images are a bit smaller than the tile which is 16x16
+				//so they might not be placed in the exact position as in Tiled
+				element.y -= map.tileHeight;
+				result.push(element);
+			}      
+		});
+	    return result;
 	},
 
 	reset: function() {

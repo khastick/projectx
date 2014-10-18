@@ -10,15 +10,19 @@ var loadState = {
 			{font: fontFamily, fill: fontColour});
 		loadStateText.anchor.setTo(0.5, 0.5);
 
-		//var progressBar = game.add.sprite(game.world.centerX, game.world.centerY, 'progressBar');
-		//progressBar.anchor.setTo(0.5, 0.5);
-		//game.load.setPreloadSprite(progressBar);
+
+
+		var progressBar = game.add.sprite(game.world.centerX / 2, game.world.centerY * .67, 'progressBar');
+		progressBar.anchor.setTo(0.5, 0.5);
+		game.load.setPreloadSprite(progressBar);
 
 		game.load.image('player', 'images/player.png'); // Player as static image
 		//game.load.image('wallV', 'images/wallVertical.png'); // Vertical wall that was used before tile map
 		//game.load.image('wallH', 'images/wallHorizontal.png'); // Horizontal wall that was used before tile map
 		game.load.image('enemy', 'images/enemy.png');
+		game.load.image('enemy2', 'images/enemy2.png');
 		game.load.image('pixel', 'images/pixel.png');
+		game.load.image('platform', 'images/platform.png');
 
 		game.load.audio('jump', ['audio/jump.ogg', 'audio/jump.mp3']);
 		game.load.audio('coin', ['audio/coin.ogg', 'audio/coin.mp3']);

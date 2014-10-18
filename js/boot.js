@@ -5,11 +5,21 @@
 var bootState = {
 	preload: function() {
 		// Loads in progress bar to display in load.js (the loading state)
-		//game.load.image('progressBar', 'images/progressBar.png');
+		game.load.image('progressBar', 'images/progressBar.png');
 	},
 
 	create: function() {
 		game.stage.backgroundColor = '#AFB9A1';
+
+	    //scaling options
+	    this.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
+	    
+	    //have the game centered horizontally
+	    this.scale.pageAlignHorizontally = true;
+	    this.scale.pageAlignVertically = true;
+
+	    //screen size will be set automatically
+	    this.scale.setScreenSize(true);
 
 		// TODO: Decide what Physics engine to use
 		game.physics.startSystem(Phaser.Physics.ARCADE);
