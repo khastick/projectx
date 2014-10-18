@@ -4,15 +4,180 @@
 
 var playState = {
 	create: function() {
-		var playStateText = game.add.text(game.world.centerX, game.world.centerY, 'playState',
-			{font: '30px Arial', fill: '#ffffff'});
+
+		var playStateText = game.add.text(game.world.centerX * 1, game.world.centerY * 1, 'good luck',
+			{font: fontFamily, fill: fontColour});
 		playStateText.anchor.setTo(0.5, 0.5);
 
+
 		game.input.onDown.addOnce(this.reset, this);
+
+		game.stage.backgroundColor = '#98AC4F';
+
+		this.player = game.add.sprite(game.world.centerX, game.world.centerY - 100, 'player');
+		this.player.anchor.setTo(0.5, 0.5);
+		game.physics.arcade.enable(this.player);
+		this.player.body.gravity.y = 500;
+
+		this.cursor = game.input.keyboard.createCursorKeys();
+		game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP],
+			Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT);
+
+		this.wasd = {
+			up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+			left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+			right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+		};
+
+		this.createWorld();
+
+		game.camera.follow(this.player);
+
+		this.enemies = game.add.group();
+		this.enemies.enableBody = true;
+		this.enemies.createMultiple(10, 'enemy');
+		//game.time.events.loop(2200, this.addEnemy, this);
+		game.time.events.loop(250, this.addEnemy, this);
+		//this.nextEnemy = 0; // for dynamic frequency of enemies
+
+		this.emitter = game.add.emitter(0, 0, 500);
+		this.emitter.makeParticles('pixel');
+		this.emitter.setYSpeed(-150, 150); // speed randomly chosen between numbers
+		this.emitter.setXSpeed(-150, 150);
+		this.emitter.gravity = 0;
+		this.emitter.minParticleScale = 0.1;
+		this.emitter.maxParticleScale = 0.7;
 	},
 
 	update: function() {
+		//game.physics.arcade.collide(this.player, this.walls);
+		//game.physics.arcade.collide(this.enemies, this.walls);
 
+		game.physics.arcade.collide(this.player, this.layer);
+		game.physics.arcade.collide(this.enemies, this.layer);
+
+		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
+		this.movePlayer();
+		if (!this.player.inWorld) {
+			//this.playerDie("fall");
+			alert();
+			this.playerDie("fall");
+		}
+	},
+
+	movePlayer: function() {
+
+		if (this.cursor.left.isDown || this.wasd.left.isDown || this.moveLeft) {
+			this.player.body.velocity.x = -200;
+			//this.player.animations.play('left');
+		}
+		else if (this.cursor.right.isDown || this.wasd.right.isDown || this.moveRight) {
+			this.player.body.velocity.x = 200;
+			//this.player.animations.play('right');
+		}
+		else {
+			this.player.body.velocity.x = 0;
+			//this.player.animations.stop();
+			//this.player.frame = 0;
+		}
+
+		if (this.cursor.up.isDown || this.wasd.up.isDown) {
+			this.jumpPlayer();
+		}
+
+	},
+
+	jumpPlayer: function() {
+		//console.log('aa');
+		if (this.player.body.onFloor() || this.player.body.touching.down) {
+			this.player.body.velocity.y = -320;
+			//this.jumpSound.play();
+			//console.log('aa');
+		}
+	},
+
+	playerDie: function(condition) {
+		//this.reset();
+
+
+		if (!this.player.alive) {
+			return;
+		}
+
+		this.player.kill();
+
+		//this.deadSound.play();
+
+		if (condition != "fall") {
+			this.emitter.x = this.player.x;
+			this.emitter.y = this.player.y;
+			this.emitter.start(true, 600, null, 15);
+		}
+
+		//this.music.stop();
+
+		game.time.events.add(1000, this.reset, this);
+
+		//game.state.start('menu');
+		/*
+		if (!this.player.alive) {
+			return;
+		}*/
+
+		//this.player.kill();
+
+		//this.deadSound.play();
+/*
+		if (condition != "fall") {
+			this.emitter.x = this.player.x;
+			this.emitter.y = this.player.y;
+			this.emitter.start(true, 600, null, 15);
+		}*/
+
+		//this.music.stop();
+
+		//game.time.events.add(1000, this.startMenu, this);
+	},
+
+	createWorld: function() {
+		this.tilemap = game.add.tilemap('tilemap');
+		this.tilemap.addTilesetImage('tileset');
+		this.layer = this.tilemap.createLayer('Tile Layer 1');
+		this.layer.resizeWorld();
+		this.tilemap.setCollision(1);
+
+		/*
+		this.walls = game.add.group();
+		this.walls.enableBody = true;
+
+		this.platform = game.add.sprite(game.world.centerX - 250, game.world.centerY + 100, 'wallH', 0, this.walls);
+		this.platform.anchor.setTo(0.5, 0.5);
+
+		for (var i = 0; i <= 10; ++i) {
+			this.platform = game.add.sprite(game.world.centerX + 250 * i, game.world.centerY + 100, 'wallH', 0, this.walls);
+			this.platform.anchor.setTo(0.5, 0.5);
+		}
+		this.walls.setAll('body.immovable', true);
+		*/
+	},
+
+	addEnemy: function() {
+		var enemy = this.enemies.getFirstDead();
+
+		if (!enemy) {
+			return;
+		}
+
+		enemy.anchor.setTo(0.5, 1);
+		//enemy.reset(game.world.centerX, 0);
+		enemy.reset(game.rnd.integerInRange(game.world.centerX - 250, game.world.centerX * 1.75), 0);
+		//enemy.body.gravity.y = 500;
+		enemy.body.gravity.y = game.rnd.integerInRange(450, 700);
+		//enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
+		enemy.body.velocity.x = game.rnd.integerInRange(75, 200) * Phaser.Math.randomSign();
+		enemy.body.bounce.x = 1;
+		enemy.checkWorldBounds = true;
+		enemy.outOfBoundsKill = true;
 	},
 
 	reset: function() {

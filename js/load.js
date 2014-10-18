@@ -5,9 +5,27 @@
 
 var loadState = {
 	preload: function() {
-		var loadStateText = game.add.text(game.world.centerX, game.world.centerY, 'loadState',
-			{font: '30px Arial', fill: '#ffffff'});
+
+		var loadStateText = game.add.text(game.world.centerX / 2, game.world.centerY / 2, 'loading...',
+			{font: fontFamily, fill: fontColour});
 		loadStateText.anchor.setTo(0.5, 0.5);
+
+		//var progressBar = game.add.sprite(game.world.centerX, game.world.centerY, 'progressBar');
+		//progressBar.anchor.setTo(0.5, 0.5);
+		//game.load.setPreloadSprite(progressBar);
+
+		game.load.image('player', 'images/player.png'); // Player as static image
+		//game.load.image('wallV', 'images/wallVertical.png'); // Vertical wall that was used before tile map
+		//game.load.image('wallH', 'images/wallHorizontal.png'); // Horizontal wall that was used before tile map
+		game.load.image('enemy', 'images/enemy.png');
+		game.load.image('pixel', 'images/pixel.png');
+
+		game.load.audio('jump', ['audio/jump.ogg', 'audio/jump.mp3']);
+		game.load.audio('coin', ['audio/coin.ogg', 'audio/coin.mp3']);
+		game.load.audio('dead', ['audio/dead.ogg', 'audio/dead.mp3']);
+
+		game.load.image('tileset', 'images/tileset.png');
+		game.load.tilemap('tilemap', 'maps/tilemap.json', null, Phaser.Tilemap.TILED_JSON);
 
 		/*
 		var loadingLabel = game.add.text(game.world.centerX, 150, 'loading...',

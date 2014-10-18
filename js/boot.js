@@ -5,14 +5,16 @@
 var bootState = {
 	preload: function() {
 		// Loads in progress bar to display in load.js (the loading state)
-		//game.load.image('progressBar', 'assets/progressBar.png');
+		//game.load.image('progressBar', 'images/progressBar.png');
 	},
 
 	create: function() {
-		//game.stage.backgroundColor = '#3498db';
+		game.stage.backgroundColor = '#AFB9A1';
 
 		// TODO: Decide what Physics engine to use
-		//game.physics.startSystem(Phaser.Physics.ARCADE);
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+		
+		game.world.setBounds(0, 0, 1600, 1200);
 
 		// Mobile: configures game screen for mobile devices
 		/*

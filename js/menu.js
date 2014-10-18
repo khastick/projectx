@@ -4,11 +4,19 @@
 
 var menuState = {
 	create: function() {
-		var menuStateText = game.add.text(game.world.centerX, game.world.centerY, 'menuState',
-			{font: '30px Arial', fill: '#ffffff'});
+		
+		var menuStateText = game.add.text(game.world.centerX / 2, game.world.centerY / 2, 'PROJECT X',
+			{font: fontFamily, fill: fontColour});
 		menuStateText.anchor.setTo(0.5, 0.5);
 
+		//game.world.setBounds(0, 0, 1600, 800);
+
+		game.stage.backgroundColor = '#AFB9A1';
+
 		game.input.onDown.addOnce(this.start, this);
+
+		var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+		upKey.onDown.addOnce(this.start, this);
 
 		/*
 		game.add.image(0, 0, 'background');

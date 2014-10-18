@@ -5,8 +5,12 @@
 //var game = new Phaser.Game(500, 340, Phaser.AUTO, 'game');
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 
+var fontFamily = '30px Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif';
+var fontColour = '#2F551E';
+
 // Global variables set in here
 game.global = {
+	// camera?
 	//score: 0
 };
 
