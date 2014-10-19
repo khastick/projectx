@@ -20,7 +20,7 @@ var loadState = {
 		//game.load.image('wallV', 'images/wallVertical.png'); // Vertical wall that was used before tile map
 		//game.load.image('wallH', 'images/wallHorizontal.png'); // Horizontal wall that was used before tile map
 		game.load.image('enemy', 'images/enemy.png');
-		game.load.image('enemy2', 'images/enemy2.png');
+		game.load.image('enemy2', 'images/enemy2.png'); // purple enemy from tilemap
 		game.load.image('pixel', 'images/pixel.png');
 		game.load.image('platform', 'images/platform.png');
 

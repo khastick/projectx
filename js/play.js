@@ -196,7 +196,7 @@ var playState = {
 		}, this);
 
 
-
+		// attempt to make platform collide with other blocks
 		game.physics.arcade.enable(this.platform);
 
 		this.platform.enableBody = true;
