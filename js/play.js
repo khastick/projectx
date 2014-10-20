@@ -163,6 +163,7 @@ var playState = {
 		//game.time.events.add(1000, this.startMenu, this);
 	},
 
+	// does the entire level building (excluding player and enemies)
 	createWorld: function() {
 		this.tilemap = game.add.tilemap('tilemap');
 		this.tilemap.addTilesetImage('tileset');
