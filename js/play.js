@@ -93,16 +93,12 @@ var playState = {
 
 		if (this.cursor.left.isDown || this.wasd.left.isDown || this.moveLeft) {
 			this.player.body.velocity.x = -200;
-			//this.player.animations.play('left');
 		}
 		else if (this.cursor.right.isDown || this.wasd.right.isDown || this.moveRight) {
 			this.player.body.velocity.x = 200;
-			//this.player.animations.play('right');
 		}
 		else {
 			this.player.body.velocity.x = 0;
-			//this.player.animations.stop();
-			//this.player.frame = 0;
 		}
 
 		if (this.cursor.up.isDown || this.wasd.up.isDown) {
@@ -112,17 +108,12 @@ var playState = {
 	},
 
 	jumpPlayer: function() {
-		//console.log('aa');
 		if (this.player.body.onFloor() || this.player.body.touching.down) {
 			this.player.body.velocity.y = -320;
-			//this.jumpSound.play();
-			//console.log('aa');
 		}
 	},
 
 	playerDie: function(condition) {
-		//this.reset();
-
 
 		if (!this.player.alive) {
 			return;
@@ -130,7 +121,6 @@ var playState = {
 
 		this.player.kill();
 
-		//this.deadSound.play();
 
 		if (condition != "fall") {
 			this.emitter.x = this.player.x;
@@ -138,29 +128,7 @@ var playState = {
 			this.emitter.start(true, 600, null, 15);
 		}
 
-		//this.music.stop();
-
 		game.time.events.add(1000, this.reset, this);
-
-		//game.state.start('menu');
-		/*
-		if (!this.player.alive) {
-			return;
-		}*/
-
-		//this.player.kill();
-
-		//this.deadSound.play();
-/*
-		if (condition != "fall") {
-			this.emitter.x = this.player.x;
-			this.emitter.y = this.player.y;
-			this.emitter.start(true, 600, null, 15);
-		}*/
-
-		//this.music.stop();
-
-		//game.time.events.add(1000, this.startMenu, this);
 	},
 
 	// does the entire level building (excluding player and enemies)
@@ -171,8 +139,6 @@ var playState = {
 		//this.tilemap.setCollision(1);
 		this.tilemap.setCollisionBetween(1, 1000, true, 'blockedLayer');
 		this.blockedLayer.resizeWorld();
-
-		//this.
 
 
 		result = this.findObjectsByType('platform', this.tilemap, 'objectLayer');
@@ -207,20 +173,6 @@ var playState = {
 		this.platform.body.bounce.x = 1;
 		this.platform.checkWorldBounds = true;
 		this.platform.outOfBoundsKill = true;
-
-		/*
-		this.walls = game.add.group();
-		this.walls.enableBody = true;
-
-		this.platform = game.add.sprite(game.world.centerX - 250, game.world.centerY + 100, 'wallH', 0, this.walls);
-		this.platform.anchor.setTo(0.5, 0.5);
-
-		for (var i = 0; i <= 10; ++i) {
-			this.platform = game.add.sprite(game.world.centerX + 250 * i, game.world.centerY + 100, 'wallH', 0, this.walls);
-			this.platform.anchor.setTo(0.5, 0.5);
-		}
-		this.walls.setAll('body.immovable', true);
-		*/
 	},
 
 	addEnemy: function() {
@@ -259,21 +211,6 @@ var playState = {
 			item.checkWorldBounds = true;
 			item.outOfBoundsKill = true;
 		}, this);
-/*
-		enemy.body.gravity.y = game.rnd.integerInRange(450, 700);
-		enemy.body.velocity.x = game.rnd.integerInRange(75, 200) * Phaser.Math.randomSign();
-		enemy.body.bounce.x = 1;
-		enemy.checkWorldBounds = true;
-		enemy.outOfBoundsKill = true;
-		*/
-
-
-		//this.enemies.createMultiple(10, 'enemy');
-
-		
-		//game.time.events.loop(2200, this.addEnemy, this);
-		
-		//game.time.events.loop(250, this.addEnemy, this);
 	},
 
 	createItems: function() {
@@ -286,14 +223,6 @@ var playState = {
 	//create a sprite from an object
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y, element.properties.sprite);
-
-/*
-		sprite.body.gravity.y = game.rnd.integerInRange(450, 700);
-		sprite.body.velocity.x = game.rnd.integerInRange(75, 200) * Phaser.Math.randomSign();
-		sprite.body.bounce.x = 1;
-		sprite.checkWorldBounds = true;
-		sprite.outOfBoundsKill = true;
-		*/
 
 		//copy all properties to the sprite
 		Object.keys(element.properties).forEach(function(key){
@@ -319,6 +248,8 @@ var playState = {
 	reset: function() {
 		game.state.start('menu');
 	}
+
+	// old game project code below (for reference purposes)
 
 	/*
 	create: function() {
