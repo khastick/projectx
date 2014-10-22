@@ -62,7 +62,6 @@ var playState = {
 
 
 		game.physics.arcade.overlap(this.platform, this.blockLayer, function() {
-			//alert('khama');
 			this.platform.body.velocity.x = -250;
 		}, null, this);
 
@@ -73,7 +72,6 @@ var playState = {
 		game.physics.arcade.collide(this.enemies, this.platform);
 
 		game.physics.arcade.collide(this.blockLayer, this.platform, function() {
-			//alert('khama');
 		});
 
 		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
@@ -175,6 +173,7 @@ var playState = {
 		this.platform.outOfBoundsKill = true;
 	},
 
+	// spawns an enemy into the game
 	addEnemy: function() {
 		var enemy = this.enemies.getFirstDead();
 
