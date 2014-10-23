@@ -185,9 +185,9 @@ var playState = {
 		//enemy.reset(game.world.centerX, 0);
 		enemy.reset(game.rnd.integerInRange(game.world.centerX - 250, game.world.centerX * 1.75), 0);
 		//enemy.body.gravity.y = 500;
-		enemy.body.gravity.y = game.rnd.integerInRange(450, 700);
+		enemy.body.gravity.y = game.rnd.integerInRange(400, 700);
 		//enemy.body.velocity.x = 100 * Phaser.Math.randomSign();
-		enemy.body.velocity.x = game.rnd.integerInRange(75, 200) * Phaser.Math.randomSign();
+		enemy.body.velocity.x = game.rnd.integerInRange(70, 200) * Phaser.Math.randomSign();
 		enemy.body.bounce.x = 1;
 		enemy.checkWorldBounds = true;
 		enemy.outOfBoundsKill = true;
