@@ -193,6 +193,7 @@ var playState = {
 		enemy.outOfBoundsKill = true;
 	},
 
+	// creates enemies from object layer
 	createEnemies: function() {		
 		this.enemies = game.add.group();
 		this.enemies.enableBody = true;
