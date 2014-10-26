@@ -213,13 +213,6 @@ var playState = {
 		}, this);
 	},
 
-	createItems: function() {
-		this.items = this.game.add.group();
-		this.items.enableBody = true;
-		var item;
-		//result = this.findObjectsByType('item', )
-	},
-
 	//create a sprite from an object
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y, element.properties.sprite);
