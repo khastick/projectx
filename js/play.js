@@ -9,7 +9,6 @@ var playState = {
 			{font: fontFamily, fill: fontColour});
 		playStateText.anchor.setTo(0.5, 0.5);
 
-
 		game.input.onDown.addOnce(this.reset, this);
 
 		game.stage.backgroundColor = '#98AC4F';
@@ -47,6 +46,7 @@ var playState = {
 		game.time.events.loop(250, this.addEnemy, this);
 		//this.nextEnemy = 0; // for dynamic frequency of enemies
 
+		// death particles
 		this.emitter = game.add.emitter(0, 0, 500);
 		this.emitter.makeParticles('pixel');
 		this.emitter.setYSpeed(-150, 150); // speed randomly chosen between numbers
@@ -59,7 +59,6 @@ var playState = {
 	update: function() {
 		//game.physics.arcade.collide(this.player, this.walls);
 		//game.physics.arcade.collide(this.enemies, this.walls);
-
 
 		game.physics.arcade.overlap(this.platform, this.blockLayer, function() {
 			this.platform.body.velocity.x = -250;
@@ -81,7 +80,6 @@ var playState = {
 		this.movePlayer();
 		if (!this.player.inWorld) {
 			//this.playerDie("fall");
-			//alert();
 			this.playerDie("fall");
 		}
 
