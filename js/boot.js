@@ -21,7 +21,6 @@ var bootState = {
 	    //screen size will be set automatically
 	    this.scale.setScreenSize(true);
 
-		// TODO: Decide what Physics engine to use
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		
 		game.world.setBounds(0, 0, 1600, 1200);
