@@ -79,7 +79,6 @@ var playState = {
 
 		this.movePlayer();
 		if (!this.player.inWorld) {
-			//this.playerDie("fall");
 			this.playerDie("fall");
 		}
 
@@ -110,13 +109,11 @@ var playState = {
 	},
 
 	playerDie: function(condition) {
-
 		if (!this.player.alive) {
 			return;
 		}
 
 		this.player.kill();
-
 
 		if (condition != "fall") {
 			this.emitter.x = this.player.x;
@@ -138,7 +135,6 @@ var playState = {
 
 
 		result = this.findObjectsByType('platform', this.tilemap, 'objectLayer');
-
 
 		//this.platform = game.add.sprite
 
@@ -211,7 +207,8 @@ var playState = {
 		}, this);
 	},
 
-	//create a sprite from an object
+	// create a sprite from an object
+	// for use with putting objects from object layer into a group (multiple items or enemies, for instance)
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y, element.properties.sprite);
 
