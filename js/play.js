@@ -12,11 +12,7 @@ var playState = {
 		game.input.onDown.addOnce(this.reset, this);
 
 		game.stage.backgroundColor = '#98AC4F';
-
-		this.player = game.add.sprite(game.world.centerX, game.world.centerY - 100, 'player');
-		this.player.anchor.setTo(0.5, 0.5);
-		game.physics.arcade.enable(this.player);
-		this.player.body.gravity.y = 500;
+        
 
 		this.cursor = game.input.keyboard.createCursorKeys();
 		game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP],
@@ -29,6 +25,8 @@ var playState = {
 		};
 
 		this.createWorld();
+        
+        this.createPlayer();
 
 		game.camera.follow(this.player);
 
@@ -60,9 +58,7 @@ var playState = {
 		//game.physics.arcade.collide(this.player, this.walls);
 		//game.physics.arcade.collide(this.enemies, this.walls);
 
-		game.physics.arcade.overlap(this.platform, this.blockLayer, function() {
-			this.platform.body.velocity.x = -250;
-		}, null, this);
+		//game.physics.arcade.overlap(this.platform, this.blockLayer);
 
 		game.physics.arcade.collide(this.player, this.blockedLayer);
 		game.physics.arcade.collide(this.enemies, this.blockedLayer);
@@ -70,12 +66,12 @@ var playState = {
 		game.physics.arcade.collide(this.player, this.platform);
 		game.physics.arcade.collide(this.enemies, this.platform);
 
-		game.physics.arcade.collide(this.blockLayer, this.platform, function() {
-		});
+		game.physics.arcade.collide(this.blockLayer, this.platform);
+		game.physics.arcade.collide(this.platform, this.blockLayer);
 
 		game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
 
-		this.platform.body.velocity.x = 500;
+		//this.platform.body.velocity.x = 500;
 
 		this.movePlayer();
 		if (!this.player.inWorld) {
@@ -165,6 +161,8 @@ var playState = {
 		this.platform.body.bounce.x = 1;
 		this.platform.checkWorldBounds = true;
 		this.platform.outOfBoundsKill = true;
+
+		this.platform.body.velocity.x = 250;
 	},
 
 	// spawns an enemy into the game
@@ -186,9 +184,37 @@ var playState = {
 		enemy.checkWorldBounds = true;
 		enemy.outOfBoundsKill = true;
 	},
+    
+    createPlayer: function() {
+
+		//this.player = game.add.sprite(game.world.centerX, game.world.centerY - 100, 'player');
+		
+        result = this.findObjectsByType('player', this.tilemap, 'objectLayer');
+		result.forEach(function(element) {
+			//this.createFromTiledObject(element, this.enemies);
+
+			//alert(element.properties.sprite);
+
+			this.player = game.add.sprite(element.x, element.y, element.properties.sprite);
+
+/*
+			//copy all properties to the sprite
+			Object.keys(element.properties).forEach(function(key){
+				this.platform[key] = element.properties[key];
+			});
+			*/
+
+		}, this);
+		
+        this.player.anchor.setTo(0.5, 0.5);
+		game.physics.arcade.enable(this.player);
+		this.player.body.gravity.y = 500;
+        
+        
+    },
 
 	// creates enemies from object layer
-	createEnemies: function() {		
+	createEnemies: function() {	
 		this.enemies = game.add.group();
 		this.enemies.enableBody = true;
 		var enemy;
@@ -218,7 +244,7 @@ var playState = {
 		});
   	},
 
-	//find objects in a Tiled layer that containt a property called "type" equal to a certain value
+	//find objects in a Tiled layer that contains a property called "type" equal to a certain value
 	findObjectsByType: function(type, map, layer) {
 		var result = new Array();
 	    map.objects[layer].forEach(function(element){

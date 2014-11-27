@@ -135,6 +135,21 @@
                  "width":0,
                  "x":408,
                  "y":700
+                }, 
+                {
+                 "gid":79,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"player",
+                     "type":"player"
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":780,
+                 "y":595
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -179,6 +194,21 @@
          "spacing":0,
          "tileheight":20,
          "tilewidth":20
+        }, 
+        {
+         "firstgid":9,
+         "image":"..\/images\/tiles.png",
+         "imageheight":1280,
+         "imagewidth":705,
+         "margin":0,
+         "name":"tiles",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":16,
+         "tilewidth":16
         }],
  "tilewidth":20,
  "version":1,
