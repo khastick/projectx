@@ -13,143 +13,196 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
          "height":60,
          "name":"objectLayer",
          "objects":[
                 {
                  "gid":4,
-                 "height":0,
+                 "height":20,
+                 "id":1,
                  "name":"",
                  "properties":
                     {
                      "sprite":"enemy2",
                      "type":"enemy2"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":960,
                  "y":920
                 }, 
                 {
                  "gid":4,
-                 "height":0,
+                 "height":20,
+                 "id":2,
                  "name":"",
                  "properties":
                     {
                      "sprite":"enemy2",
                      "type":"enemy2"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":1062,
                  "y":848
                 }, 
                 {
                  "gid":4,
-                 "height":0,
+                 "height":20,
+                 "id":3,
                  "name":"",
                  "properties":
                     {
                      "sprite":"enemy2",
                      "type":"enemy2"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":776,
                  "y":864
                 }, 
                 {
                  "gid":4,
-                 "height":0,
+                 "height":20,
+                 "id":4,
                  "name":"",
                  "properties":
                     {
                      "sprite":"enemy2",
                      "type":"enemy2"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":1440,
                  "y":848
                 }, 
                 {
                  "gid":4,
-                 "height":0,
+                 "height":20,
+                 "id":5,
                  "name":"",
                  "properties":
                     {
                      "sprite":"enemy2",
                      "type":"enemy2"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":1158,
                  "y":888
                 }, 
                 {
                  "gid":4,
-                 "height":0,
+                 "height":20,
+                 "id":6,
                  "name":"",
                  "properties":
                     {
                      "sprite":"enemy2",
                      "type":"enemy2"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":1290,
                  "y":590
                 }, 
                 {
                  "gid":4,
-                 "height":0,
+                 "height":20,
+                 "id":7,
                  "name":"",
                  "properties":
                     {
                      "sprite":"enemy2",
                      "type":"enemy2"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":838,
                  "y":796
                 }, 
                 {
                  "gid":2,
-                 "height":0,
+                 "height":20,
+                 "id":8,
                  "name":"",
                  "properties":
                     {
                      "sprite":"platform",
                      "type":"platform"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":20,
                  "x":408,
                  "y":700
                 }, 
                 {
                  "gid":79,
-                 "height":0,
+                 "height":16,
+                 "id":9,
                  "name":"",
                  "properties":
                     {
                      "sprite":"player",
                      "type":"player"
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":16,
                  "x":780,
                  "y":595
+                }, 
+                {
+                 "gid":4,
+                 "height":20,
+                 "id":14,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"flag",
+                     "type":"flag"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20,
+                 "x":1416,
+                 "y":890.666666666667
+                }, 
+                {
+                 "gid":3,
+                 "height":20,
+                 "id":16,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"flag",
+                     "type":"flag"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20,
+                 "x":1374,
+                 "y":840.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -158,11 +211,13 @@
          "x":0,
          "y":0
         }],
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "properties":
     {
 
     },
+ "renderorder":"right-down",
  "tileheight":20,
  "tilesets":[
         {
