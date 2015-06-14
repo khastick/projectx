@@ -52,18 +52,19 @@ function findObjectsByType (type, map, layer) {
        return entity;
    }
    
-   function setPlatform(game,entity){       
+   function setPlane(game,entity){       
         game.physics.arcade.enable(entity);
 
-        entity.enableBody = true;
+       // entity.enableBody = true;
         entity.anchor.setTo(0.5, 0.5);
-        entity.body.immovable = true;
+        //entity.body.immovable = true;
 
-        entity.body.bounce.x = 1;
-        entity.checkWorldBounds = true;
-        entity.outOfBoundsKill = true;
+        //entity.body.bounce.x = 1;
+       // entity.checkWorldBounds = true;
+        //entity.outOfBoundsKill = true;
 
-        entity.body.velocity.x = 250;
+       // entity.body.velocity.x = 100
+         entity.body.gravity.y = 500;
         return entity;
    }
    

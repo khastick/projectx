@@ -2,7 +2,13 @@
  *  The actual gameplay state
  */
 
+/* global game */
+
 var playState = {
+    render: function(){
+        //game.debug.spriteBounds(this.platform);        
+    },
+    
     create: function () {
 
         var playStateText = game.add.text(game.world.centerX * 1, game.world.centerY * 1, 'good luck',
@@ -10,7 +16,6 @@ var playState = {
         playStateText.anchor.setTo(0.5, 0.5);
 
         game.input.onDown.addOnce(this.reset, this);
-
         game.stage.backgroundColor = '#98AC4F';
 
         this.cursor = game.input.keyboard.createCursorKeys();
@@ -24,31 +29,36 @@ var playState = {
         };
 
         this.createWorld();
-
         this.createPlayer();
-
         game.camera.follow(this.player);
-
-        this.createEnemies();
-        this.enemies.createMultiple(10, 'enemy');
-
-        this.createFlag();
-        game.time.events.loop(250, this.addEnemy, this);
-
-        // death particles
-        this.emitter = createEmitter();
+       
+        //this.createEnemies();
+        //this.enemies.createMultiple(10, 'enemy');
+        //this.createFlag();
+        
+        this.createGroup('flag',makeStandard);
+        this.createGroup('block',makeFloater);
+        //this.createGroup('enemy', makeWorldBounded);
+        //game.time.events.loop(250, this.addEnemy, this);
+        
+        this.emitter = createEmitter(); // death particles
+                
     },
     
     update: function () {
         game.physics.arcade.collide(this.player, this.blockedLayer);
         game.physics.arcade.collide(this.enemies, this.blockedLayer);
+        game.physics.arcade.collide(this['flag'], this.blockedLayer);
+        game.physics.arcade.collide(this['block'], this.blockedLayer);
+        //game.physics.arcade.collide(this.player, this.platform);
+       // game.physics.arcade.collide(this.enemies, this.platform);
 
-        game.physics.arcade.collide(this.player, this.platform);
-        game.physics.arcade.collide(this.enemies, this.platform);
-
-        game.physics.arcade.collide(this.blockLayer, this.platform);
-        game.physics.arcade.collide(this.platform, this.blockLayer);
-
+        //game.physics.arcade.collide(this.plane, this.blockedLayer, function(){
+        //    console.log("here");
+        //});
+        
+        game.physics.arcade.collide(this.player, this['flag']);
+        game.physics.arcade.collide(this.player, this['block']);
         game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
 
         this.movePlayer();
@@ -104,9 +114,7 @@ var playState = {
         this.tilemap.addTilesetImage('tileset');
         this.blockedLayer = this.tilemap.createLayer('blockedLayer');
         this.tilemap.setCollisionBetween(1, 1000, true, 'blockedLayer');
-        this.blockedLayer.resizeWorld();
-
-        this.createPlatform();
+        this.blockedLayer.resizeWorld();        
     },
     
     // spawns an enemy into the game
@@ -119,24 +127,35 @@ var playState = {
 
         enemy = setRandEnemy(game, enemy);
     },
-    
-    createPlatform: function(){
-        result = createTileGroup('platform', this.tilemap);
 
+   setEntity: function(entity, setter){
+    entity = setter(entity);
+   },
+   
+    createGroup : function (sprite,  setter){
+        this[sprite] = game.add.group();
+        this[sprite].enableBody = true;
+        
+        result = createTileGroup(sprite, this.tilemap);
         result.forEach(function (element) {
-            this.platform = game.add.sprite(element.x, element.y, element.properties.sprite);
-        }, this);
-
-        // attempt to make platform collide with other blocks
-       this.platform = setPlatform(game,this.platform);
+             this.createFromTiledObject(element, this[sprite]);
+        }, this);       
+        
+        this[sprite].forEach(setEntity, this, true, setter);        
     },
     
     createFlag: function(){
+        this.flags = game.add.group();
+        this.flags.enableBody  = true;
+        
         result = createTileGroup('flag', this.tilemap);
         result.forEach(function (element) {
-            this.flag = game.add.sprite(element.x, element.y, element.properties.sprite);
+             this.createFromTiledObject(element, this.flags);
+        }, this);       
+        
+        this.flags.forEach(function (item) {
+            item = setEnemy(game, item);
         }, this);
-        this.flag = setFlag(game,this.flag);
     },
     
     createPlayer: function () {

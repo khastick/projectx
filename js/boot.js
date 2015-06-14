@@ -20,30 +20,8 @@ var bootState = {
 
 	    //screen size will be set automatically
 	    this.scale.setScreenSize(true);
-
-		game.physics.startSystem(Phaser.Physics.ARCADE);
-		
+		game.physics.startSystem(Phaser.Physics.ARCADE);		
 		game.world.setBounds(0, 0, 1600, 1200);
-
-		// Mobile: configures game screen for mobile devices
-		/*
-		if (!game.device.desktop) {
-			game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-			document.body.style.backgroundColor = '#3498db'; // border colours
-
-			game.scale.minWidth = 250;
-			game.scale.minHeight = 170;
-			game.scale.maxWidth = 1000;
-			game.scale.maxHeight = 680;
-
-			game.scale.pageAlignHorizontally = true;
-			game.scale.pageAlignVertically = true;
-
-			game.scale.setScreenSize(true);
-		}
-		*/
-
 		game.state.start('load');
 	}
 };

@@ -1,0 +1,48 @@
+*** platform
+mv left and right | mv up and down
+if collision reverse the speed
+
+controlled mv
+if the player touches the platform mv; 
+	stop after returning from trip
+
+bool active
+int touches 
+	if touches with wall = 2 then stop
+
+*** Rain
+Position drop relative to source
+rain uses the width of the drop as a unit to position
+the rain has a drop width 
+	in this range drops can be randomly dropped or in a iterative order
+
+int unit; dropWidth;
+timer
+
+random drop
+	addDrop at random(dropWidth)
+
+increment Drop
+	int position
+	timer
+		addDrop at position * unit
+		position = ++position % dropWidth
+
+
+add
+	displacement = point(unit * count, unit) 
+	new drop with position = my position + displacement
+
+*** drop
+constructor
+	velocity = down
+
+
+collision
+	die and particle effect
+
+*** Level
+mv object funtions into a entity file
+mv each object into its own file
+
+
