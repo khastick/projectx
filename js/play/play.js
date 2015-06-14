@@ -8,7 +8,7 @@ var playState = {
       create: function () {
 	    this.group = {};
 	    this.emitters = {};
-	    
+
 	    this.initBackground();
 	    this.initKeyboard();
 
@@ -16,22 +16,22 @@ var playState = {
 	    this.makeObject = makeObject;
 
 	    this.createWorld();
-	    this.createPlayer();
+	    this.player = this.group.getTop();
+
 	    game.camera.follow(this.player);
 
 	    this.group['cloud'].forEach(
 		    function (element) {
 			  game.time.events.loop(1000, element.rain, element);
 		    });
-		    
+
 	    this.emitters['player'] = makePlayerEmitter(); // death particles
 	    this.emitters['drop'] = makeDropEmitter();
-	    
+
 	    this.jump = playerJump;
 	    this.die = playerDie;
 	    this.move = playerMove;
       },
-      
       update: function () {
 	    this.collision();
 
@@ -40,31 +40,29 @@ var playState = {
 		  this.die("fall");
 	    }
       },
-      
       collision: function () {
 	    var runners, flags, blocks, clouds, blockedLayer, player;
-	    
+
 	    runners = this.group['runner'];
 	    flags = this.group['flag'];
 	    clouds = this.group['cloud'];
 	    blocks = this.group['block'];
 	    player = this.player;
 	    blockedLayer = this.blockedLayer;
-	    
+
 	    game.physics.arcade.collide(player, blockedLayer);
 	    game.physics.arcade.collide(runners, blockedLayer);
 	    game.physics.arcade.collide(flags, blockedLayer);
 	    game.physics.arcade.collide(blocks, blockedLayer);
-	    
+
 	    var drops = clouds.getTop().group;
-	  
+
 	    game.physics.arcade.collide(drops, blockedLayer, dieDrop, null, this);
-	    
+
 	    game.physics.arcade.collide(player, flags);
 	    game.physics.arcade.collide(player, blocks);
 	    game.physics.arcade.overlap(player, runners, this.die, null, this);
       },
-      
       initKeyboard: function () {
 	    this.cursor = game.input.keyboard.createCursorKeys();
 	    game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP],
@@ -91,13 +89,14 @@ var playState = {
 	    this.blockedLayer = this.tilemap.createLayer('blockedLayer');
 	    this.tilemap.setCollisionBetween(1, 1000, true, 'blockedLayer');
 	    this.blockedLayer.resizeWorld();
-	    
+
 	    this.createGroup('flag', makeFlag);
 	    this.createGroup('block', makeBlock);
 	    this.createGroup('runner', makeRunner);
 	    this.createGroup('cloud', makeCloud);
+	    this.createGroup('player', makePlayer);
+
       },
-      
       createGroup: function (sprite, setter) {
 	    var group = game.add.group();
 	    group.enableBody = true;
@@ -115,16 +114,6 @@ var playState = {
 		    });
 
 	    this.group[sprite] = group;
-      },
-      createPlayer: function () {
-	    result = createTileGroup('player', this.tilemap);
-
-	    result.forEach(function (element) {
-		  this.player = game.add.sprite(element.x, element.y, element.properties.sprite);
-	    }, this);
-
-	    this.player.create = playerCreate;
-	    this.player.create();
       },
       reset: function () {
 	    game.state.start('menu');

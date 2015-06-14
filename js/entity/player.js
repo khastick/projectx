@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-function playerCreate() {
+function makeCreate() {
       game.physics.arcade.enable(this);
       this.anchor.setTo(0.5, 0.5);
       this.body.gravity.y = 500;
