@@ -20,7 +20,7 @@ var menuState = {
 
 	start: function() {
 		//this.startSound.play();
-		game.state.start('play');
+		game.global.loadCurrentState();
 	}
 };
 

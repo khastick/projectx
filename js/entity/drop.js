@@ -9,7 +9,7 @@ function makeDrop(x, y) {
 }
 
 function dieDrop(collide1, collide2) {
-      var em = this.emitters['drop'];
+      var em = game.global.emitters['drop'];
 
       collide1.kill();
 

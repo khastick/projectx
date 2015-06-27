@@ -16,7 +16,7 @@ var playState = {
 	    this.makeObject = makeObject;
 
 	    this.createWorld();
-	    this.player = this.group.getTop();
+	    this.player = this.group.player.getTop();
 
 	    game.camera.follow(this.player);
 
@@ -41,16 +41,16 @@ var playState = {
 	    }
       },
       collision: function () {
-	    var runners, flags, blocks, clouds, blockedLayer, player;
+	    var runners, flags, blocks, clouds, blockedLayer, players;
 
 	    runners = this.group['runner'];
 	    flags = this.group['flag'];
 	    clouds = this.group['cloud'];
 	    blocks = this.group['block'];
-	    player = this.player;
+	    players = this.group['player'];
 	    blockedLayer = this.blockedLayer;
 
-	    game.physics.arcade.collide(player, blockedLayer);
+	    game.physics.arcade.collide(players, blockedLayer);
 	    game.physics.arcade.collide(runners, blockedLayer);
 	    game.physics.arcade.collide(flags, blockedLayer);
 	    game.physics.arcade.collide(blocks, blockedLayer);
@@ -59,9 +59,9 @@ var playState = {
 
 	    game.physics.arcade.collide(drops, blockedLayer, dieDrop, null, this);
 
-	    game.physics.arcade.collide(player, flags);
-	    game.physics.arcade.collide(player, blocks);
-	    game.physics.arcade.overlap(player, runners, this.die, null, this);
+	    game.physics.arcade.collide(players, flags);
+	    game.physics.arcade.collide(players, blocks);
+	    game.physics.arcade.overlap(players, runners, this.die, null, this);
       },
       initKeyboard: function () {
 	    this.cursor = game.input.keyboard.createCursorKeys();

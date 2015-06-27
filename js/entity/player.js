@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 
-function makeCreate() {
-      game.physics.arcade.enable(this);
+function makePlayer() {
       this.anchor.setTo(0.5, 0.5);
       this.body.gravity.y = 500;
 }
@@ -39,7 +38,7 @@ function playerJump() {
 
 function playerDie(condition) {
       var player = this.player;
-      var em = this.emitters['player'];
+      var em = game.global.emitters.player
       
       if (!player.alive) {
 	    return;
