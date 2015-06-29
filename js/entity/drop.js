@@ -4,17 +4,5 @@
  * and open the template in the editor.
  */
 
-function makeDrop(x, y) {
 
-}
 
-function dieDrop(collide1, collide2) {
-      var em = game.global.emitters['drop'];
-
-      collide1.kill();
-
-      em.x = collide1.position.x;
-      em.y = collide1.position.y;
-      em.start(true, 600, null, 15);
-
-}

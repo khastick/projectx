@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="initial-scale=1 maximum-scale=1 
-			user-scalable=0 minimal-ui"/>
-		<meta name="mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="HandheldFriendly" content="true"/>
-		<title>Project X</title>
-  		<!--<link rel="shortcut icon" href="assets/player.png"/>-->
-                
-		<script type="text/javascript" src="js/phaser.min.js"></script>
-                                     
-                                     <script type="text/javascript" src="js/play/system.js"></script>
-                                     <script type="text/javascript" src="js/play/State.js"></script>
-                    
-                                   <script type="text/javascript" src="js/game/boot.js"></script>
-                                   <script type="text/javascript" src="js/game/load.js"></script>
-                                   <script type="text/javascript" src="js/game/menu.js"></script>
-                                   <script type="text/javascript" src="js/game/game.js"></script>                                                                                                 
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1 maximum-scale=1 
+              user-scalable=0 minimal-ui"/>
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="HandheldFriendly" content="true"/>
+        <title>Project X</title>
+        <!--<link rel="shortcut icon" href="assets/player.png"/>-->
 
-                                   <script type="text/javascript" src="js/entity/entity.js"></script>
-                                     <script type="text/javascript" src="js/entity/player.js"></script>
-                                     <script type="text/javascript" src="js/entity/flag.js"></script>
-                                     <script type="text/javascript" src="js/entity/runner.js"></script>
-                                     <script type="text/javascript" src="js/entity/cloud.js"></script>
-                                     <script type="text/javascript" src="js/entity/drop.js"></script>
-                                     <script type="text/javascript" src="js/entity/block.js"></script>
-                                   <script type="text/javascript" src="js/entity/emitter.js"></script>
-		<!--
-		<style type="text/css">
-			@import url(http://fonts.googleapis.com/css?family=Geo);
+        <script type="text/javascript" src="js/phaser.min.js"></script>
 
-			.hiddenText {
-				font-family: Geo, sans-serif;
-				visibility: hidden;
-			}
+        <script type="text/javascript" src="js/play/GroupLoader.js"></script>
+        <script type="text/javascript" src="js/play/Collider.js"></script>
+        <script type="text/javascript" src="js/play/State.js"></script>
 
-			* {
-				margin: 0;
-				padding: 0;
-			}
-		</style>
-		-->
-	</head>
-	<body>
-		<div id="game"> </div>
-		<!-- <p class="hiddenText">.</p> -->
-	</body>
+        <script type="text/javascript" src="js/game/StateLoader.js"></script>
+        <script type="text/javascript" src="js/game/AssetLoader.js"></script>        
+        <script type="text/javascript" src="js/game/boot.js"></script>
+        <script type="text/javascript" src="js/game/load.js"></script>
+        <script type="text/javascript" src="js/game/menu.js"></script>
+        <script type="text/javascript" src="js/game/game.js"></script>                                                                                                 
+
+        <script type="text/javascript" src="js/entity/entity.js"></script>
+        <script type="text/javascript" src="js/entity/player.js"></script>
+        <script type="text/javascript" src="js/entity/flag.js"></script>
+        <script type="text/javascript" src="js/entity/runner.js"></script>
+        <script type="text/javascript" src="js/entity/cloud.js"></script>
+        <script type="text/javascript" src="js/entity/drop.js"></script>
+        <script type="text/javascript" src="js/entity/block.js"></script>
+        <script type="text/javascript" src="js/entity/emitter.js"></script>
+        <!--
+        <style type="text/css">
+                @import url(http://fonts.googleapis.com/css?family=Geo);
+
+                .hiddenText {
+                        font-family: Geo, sans-serif;
+                        visibility: hidden;
+                }
+
+                * {
+                        margin: 0;
+                        padding: 0;
+                }
+        </style>
+        -->
+    </head>
+    <body>
+        <div id="game"> </div>
+        <!-- <p class="hiddenText">.</p> -->
+    </body>
 </html>

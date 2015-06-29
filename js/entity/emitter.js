@@ -17,10 +17,14 @@ function createEmitter(speed, min, max, misc, gravity, image)
       return entity;
 }
 
-function makePlayerEmitter(){
+function makePlayerEmitter() {
       return createEmitter(150, 0.1, 0.7, 500, 0, 'pixel_player');
 }
 
-function makeDropEmitter(){
+function makeDropEmitter() {
       return createEmitter(125, 0.1, 0.8, 500, 400, 'pixel_drop');
+}
+
+function makeRunnerEmitter() {
+      return createEmitter(150, 0.1, 0.7, 500, 0, 'pixel_runner');
 }

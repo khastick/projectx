@@ -4,53 +4,36 @@
  * and open the template in the editor.
  */
 
-function makePlayer() {
-      this.anchor.setTo(0.5, 0.5);
-      this.body.gravity.y = 500;
-}
+/* global game */
 
-function playerMove() {
-      var player = this.player;
-
-      if (this.cursor.left.isDown || this.wasd.left.isDown || this.moveLeft) {
-	    player.body.velocity.x = -200;
-      }
-      else if (this.cursor.right.isDown || this.wasd.right.isDown || this.moveRight) {
-	    player.body.velocity.x = 200;
-      }
-      else {
-	    player.body.velocity.x = 0;
-      }
-
-      if (this.cursor.up.isDown || this.wasd.up.isDown) {
-	    this.jump();
-      }
-
-}
-
-function playerJump() {
-      var player = this.player;
-
-      if (player.body.onFloor() || player.body.touching.down) {
-	    player.body.velocity.y = -320;
-      }
-}
-
-function playerDie(condition) {
-      var player = this.player;
-      var em = game.global.emitters.player
+function Player() {
+      this.SPEED_X = 200;
+      this.SPEED_Y = 320;
+      this.GRAVITY_Y = 500;
       
-      if (!player.alive) {
-	    return;
-      }
+      this.anchor.setTo(0.5, 0.5);
+      this.body.gravity.y = this.GRAVITY_Y;
 
-      player.kill();
+      this.move = function (state) {
+	    if (state.cursor.left.isDown || state.wasd.left.isDown || state.moveLeft) {
+		  this.body.velocity.x = -this.SPEED_X;
+	    }
+	    else if (state.cursor.right.isDown || state.wasd.right.isDown || state.moveRight) {
+		  this.body.velocity.x = this.SPEED_X;
+	    }
+	    else {
+		  this.body.velocity.x = 0;
+	    }
 
-      if (condition != "fall") {
-	    em.x = player.x;
-	    em.y = player.y;
-	    em.start(true, 600, null, 15);
-      }
+	    if (state.cursor.up.isDown || state.wasd.up.isDown) {
+		  this.jump();
+	    }
 
-      game.time.events.add(1000, this.reset, this);
-}
+      };
+
+      this.jump = function () {
+	    if (this.body.onFloor() || this.body.touching.down) {
+		  this.body.velocity.y = -this.SPEED_Y;
+	    }
+      };
+ }

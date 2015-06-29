@@ -4,20 +4,9 @@
  * and open the template in the editor.
  */
 
-/*  Fifth game state (5/5)
- *  The actual gameplay state
- */
-
-var playState02 = {
-    create: function () {
-
-     
-    },
-    
-    update: function () {
-        
-
-    },
-    
-};
+function AssetLoader(names, directory, filetype) {
+      this.names = names;
+      this.directory = directory;
+      this.filetype = filetype;
+}
 
